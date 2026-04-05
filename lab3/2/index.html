@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grader</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 6px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 40%;
+            max-width: 900px;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 15px auto;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+        }
+
+        th {
+            background: #f0f0f0;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>ระบบตัดเกรด</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>ชื่อ</th>
+                    <th>คะแนน</th>
+                    <th>เกรด</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+
+        <button onclick="calculateGrade()">คำนวณเกรด</button>
+    </div>
+
+    <script>
+        const students = [
+            "build", "toy", "tae", "pruf",
+            "pok", "prem", "nine", "pure"
+        ];
+
+        const tableBody = document.getElementById("tableBody");
+
+
+        students.forEach((name, index) => {
+            const score = Math.floor(Math.random() * 61) + 40;
+            const row = `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${name}</td>
+                <td class="score">${score}</td>
+                <td class="grade"></td>
+            </tr>
+        `;
+            tableBody.innerHTML += row;
+        });
+
+        function calculateGrade() {
+            const rows = document.querySelectorAll("#tableBody tr");
+
+            rows.forEach(row => {
+                const score = parseInt(row.querySelector(".score").innerText);
+                let grade = "";
+
+                if (score >= 80) grade = "A";
+                else if (score >= 70) grade = "B";
+                else if (score >= 60) grade = "C";
+                else if (score >= 50) grade = "D";
+                else grade = "F";
+
+                row.querySelector(".grade").innerText = grade;
+            });
+        }
+    </script>
+
+</body>
+
+</html>

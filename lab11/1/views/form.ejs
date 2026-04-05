@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Information</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+        h2 {
+            margin-top: 0;
+            font-weight: 500;
+            color: #444;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        textarea {
+            resize: vertical;
+        }
+        .buttons {
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 8px 15px;
+            border: 1px solid #666;
+            background-color: #f9f9f9;
+            color: #333;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #e2e2e2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Employee Information</h2>
+    
+    <form action="/save" method="POST">
+        <div class="form-group">
+            <label>Employee ID:</label>
+            <input type="text" name="CustomerId" value="<%= data.CustomerId || '' %>">
+        </div>
+        
+        <div class="form-group">
+            <label>Firstname:</label>
+            <input type="text" name="FirstName" value="<%= data.FirstName || '' %>">
+        </div>
+
+        <div class="form-group">
+            <label>Lastname:</label>
+            <input type="text" name="LastName" value="<%= data.LastName || '' %>">
+        </div>
+
+        <div class="form-group">
+            <label>Address:</label>
+            <textarea name="Address" rows="3"><%= data.Address || '' %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="Email" value="<%= data.Email || '' %>">
+        </div>
+
+        <div class="form-group">
+            <label>Phone:</label>
+            <input type="text" name="Phone" value="<%= data.Phone || '' %>">
+        </div>
+
+        <div class="buttons">
+            <button type="submit" class="btn">Save Data</button>
+            
+            <a href="/show" class="btn">Show Data</a>
+            <a href="/clear" class="btn">Clear Data</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

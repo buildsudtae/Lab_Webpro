@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="4.css">
+</head>
+<body>
+    <div class="container">
+        <h3>ระบบตัดเกรด</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>ชื่อ</th>
+                    <th>คะแนน</th>
+                    <th>เกรด</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Build</td>
+                    <td id="score1"></td>
+                    <td id="grade1"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Build</td>
+                    <td id="score2"></td>
+                    <td id="grade2"></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Build</td>
+                    <td id="score3"></td>
+                    <td id="grade3"></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Build</td>
+                    <td id="score4"></td>
+                    <td id="grade4"></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Build</td>
+                    <td id="score5"></td>
+                    <td id="grade5"></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Build</td>
+                    <td id="score6"></td>
+                    <td id="grade6"></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Build</td>
+                    <td id="score7"></td>
+                    <td id="grade7"></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Build</td>
+                    <td id="score8"></td>
+                    <td id="grade8"></td>
+                </tr>
+            </tbody>
+        </table>
+    <button onclick="random()">คำนวณเกรด</button>
+    </div>
+    <script>
+        function random(){
+            for (let i = 1; i <= 8; i++){
+                let score = Math.floor(Math.random() * (100 - 40 +1))+40
+                let num = document.getElementById("score"+i);
+                num.innerText = score;
+                let grade;
+                if (80 <= score && score <= 100){
+                    grade = "A";
+                }
+                else if (70 <= score && score <= 79){
+                    grade = "B";
+                }
+                else if (60 <= score && score <= 69){
+                    grade = "C";
+                }
+                else if (50 <= score && score <= 59){
+                    grade = "D";
+                }
+                else {
+                    grade = "F";
+                }
+                let gradecell = document.getElementById("grade"+i);
+                gradecell.innerText = grade;
+            }
+        }
+    </script>
+</body>
+</html>

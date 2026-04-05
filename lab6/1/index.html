@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            padding: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            text-align: left;
+            font-weight: bold;
+            padding: 12px 10px;
+            border-bottom: 2px solid #ddd;
+            color: #333;
+        }
+
+        tbody td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #eee;
+            color: #444;
+        }
+
+        .gray{
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="maintable"></table>
+
+    <script>
+        const table = document.getElementById("maintable");
+        const thead = document.createElement("thead");
+        const trhead = document.createElement("tr");
+
+        const thID = document.createElement("th");
+        thID.appendChild(document.createTextNode("ID"));
+
+        const thName = document.createElement("th");
+        thName.appendChild(document.createTextNode("Name"));
+
+        const thGender = document.createElement("th");
+        thGender.appendChild(document.createTextNode("Gender"));
+
+        const thPosition = document.createElement("th");
+        thPosition.appendChild(document.createTextNode("Position"));
+
+        const thAddress = document.createElement("th");
+        thAddress.appendChild(document.createTextNode("Address"));
+
+        trhead.append(thID, thName, thGender, thPosition, thAddress);
+        thead.appendChild(trhead);
+
+        const tbody = document.createElement("tbody");
+        function loaddata(data) {
+            data.forEach(data => {
+                const trbody = document.createElement("tr");
+                if (Number(data.id)%2 != 0){
+                    trbody.setAttribute('class','gray');
+                }
+
+                const tdID = document.createElement("td");
+                tdID.appendChild(document.createTextNode(data.id));
+
+                const tdName = document.createElement("td");
+                tdName.appendChild(document.createTextNode(`${data.FirstName} ${data.LastName}`));
+
+                const tdGender = document.createElement("td");
+                if(data.Gender === 'Female'){
+                    tdGender.appendChild(document.createTextNode('F'));
+                } else {
+                    tdGender.appendChild(document.createTextNode('M'));
+                }
+
+                const tdPosition = document.createElement("td");
+                tdPosition.appendChild(document.createTextNode(data.Position));
+
+                const tdAddress = document.createElement("td");
+                tdAddress.appendChild(document.createTextNode(data.Address));
+
+                trbody.append(tdID, tdName, tdGender, tdPosition, tdAddress);
+                tbody.appendChild(trbody);
+            });
+            table.append(thead, tbody);
+        }
+
+        fetch("employees.json")
+            .then((res) => res.json())
+            .then((data) => loaddata(data))
+            .catch((error) => console.log("error", error));
+    </script>
+</body>
+
+</html>

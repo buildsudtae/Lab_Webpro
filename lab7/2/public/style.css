@@ -1,0 +1,104 @@
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 40px;;
+    line-height: 1.6;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+}
+
+.food-card {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.food-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+}
+
+.food-card a {
+    display: block;
+    padding: 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.food-card a:hover {
+    color: #3498db;
+    background-color: #f9f9f9;
+}
+
+.detail-container {
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    max-width: 1000px;
+    align-items: start;
+}
+
+.detail-image {
+    flex: 1;
+    min-width: 300px;
+    margin: auto;
+}
+
+.detail-image img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.detail-info {
+    flex: 1.5;
+}
+
+.detail-info h3 {
+    margin-top: 0;
+    display: inline-block;
+}
+
+.detail-info ul {
+    padding-left: 20px;
+}
+
+.detail-info li {
+    margin-bottom: 8px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 25px;
+    background-color: #2c3e50;
+    color: white;
+    border-radius: 30px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 25px;
+            width: 320px;
+            border-radius: 6px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>User Registration</h2>
+
+        <form onsubmit="return validateForm()">
+            <label>Username</label>
+            <input type="text" id="username" />
+            <div id="userError" class="error"></div>
+
+            <label>Email</label>
+            <input type="text" id="email" />
+            <div id="emailError" class="error"></div>
+
+            <label>Phone Number</label>
+            <input type="text" id="phone" />
+            <div id="phoneError" class="error"></div>
+
+            <label>Password</label>
+            <input type="password" id="password" />
+            <div id="passError" class="error"></div>
+
+            <label>Confirm Password</label>
+            <input type="password" id="confirm" />
+            <div id="confirmError" class="error"></div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let valid = true;
+
+            document.querySelectorAll(".error").forEach((e) => (e.innerText = ""));
+
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const password = document.getElementById("password").value;
+            const confirm = document.getElementById("confirm").value;
+
+            if (username.length < 5) {
+                document.getElementById("userError").innerText =
+                    "Username ต้องมีอย่างน้อย 5 ตัวอักษร";
+                valid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("emailError").innerText =
+                    "รูปแบบ Email ไม่ถูกต้อง";
+                valid = false;
+            }
+
+            const phonePattern = /^\d{10}$/;
+            if (!phonePattern.test(phone)) {
+                document.getElementById("phoneError").innerText =
+                    "Phone Number ต้องเป็นตัวเลข 10 หลัก";
+                valid = false;
+            }
+
+            const passPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+            if (!passPattern.test(password)) {
+                document.getElementById("passError").innerText =
+                    "Password ต้องมีอย่างน้อย 8 ตัว และมี A-Z, a-z, 0-9 และอักขระพิเศษ";
+                valid = false;
+            }
+
+            if (password !== confirm) {
+                document.getElementById("confirmError").innerText =
+                    "Confirm Password ไม่ตรงกับ Password";
+                valid = false;
+            }
+
+            if (valid) {
+                alert("ลงทะเบียนสำเร็จ");
+            }
+
+            return valid;
+        }
+    </script>
+</body>
+
+</html>

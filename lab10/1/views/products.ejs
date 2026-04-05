@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1976d2;
+        }
+
+        h3 {
+            color: #1976d2;
+            margin-bottom: 5px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 90%;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* เพิ่ม Flexbox ให้ปุ่ม Detail ถูกดันไปอยู่ล่างสุดเสมอ ในกรณีที่เนื้อหายาวไม่เท่ากัน */
+            display: flex;
+            flex-direction: column; 
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .card p {
+            flex-grow: 1; /* ให้ p ขยายเต็มพื้นที่ที่เหลือ ดันปุ่มลงล่างสุด */
+            color: #555;
+            font-size: 14px;
+        }
+
+        .btn {
+            display: block;
+            background: #1976d2;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #1565c0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>My Products</h1>
+
+    <div class="grid">
+        <% products.forEach(p => { %>
+            <div class="card">
+                <img src="<%= p.image_url %>" alt="<%= p.name %>">
+
+                <h3><%= p.name %></h3>
+
+                <p><%= p.description %></p>
+
+                <a class="btn" href="/detail/<%= p.product_id %>">
+                    Detail
+                </a>
+            </div>
+        <% }) %>
+    </div>
+
+</body>
+
+</html>

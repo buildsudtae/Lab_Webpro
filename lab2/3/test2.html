@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex vs Grid Demo</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        h2 { margin-bottom: 10px; }
+        p { margin-top: 0; color: #555; }
+
+        /* =========================================
+           1. FLEXBOX ZONE (เน้นแถวเดียว)
+           ========================================= */
+        .flex-container {
+            display: flex;       /* เปิดใช้งาน Flex */
+            justify-content: space-around; /* จัดระยะห่าง: ให้กระจายตัวชิดขอบซ้าย-ขวา */
+            align-items: center; /* จัดแนวตั้ง: ให้อยู่กึ่งกลางแนวตั้ง */
+            background-color: #ddd; /* สีเทา คือพื้นที่ของ Container */
+            height: 150px;          /* กำหนดความสูงเพื่อให้เห็นการจัดกึ่งกลางชัดๆ */
+            padding: 10px;
+            border: 2px solid #999;
+            margin-bottom: 50px;    /* เว้นระยะห่างจากตัวอย่างถัดไป */
+        }
+
+        .flex-item {
+            background-color: #ff6b6b; /* สีแดง */
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* =========================================
+           2. GRID ZONE (เน้นตาราง 2 มิติ)
+           ========================================= */
+        .grid-container {
+            display: grid;       /* เปิดใช้งาน Grid */
+            /* คำสั่งพระเอก: แบ่งเป็น 3 คอลัมน์ เท่าๆ กัน (1fr 1fr 1fr) */
+            grid-template-columns: 1fr 1fr 1fr; 
+            gap: 15px;           /* ช่องว่างระหว่างตาราง */
+
+            background-color: #333; /* สีดำ คือพื้นที่ของ Container */
+            padding: 10px;
+            border: 2px solid black;
+        }
+
+        .grid-item {
+            background-color: #4ecdc4; /* สีเขียวมิ้นท์ */
+            color: black;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        /* ลูกเล่น: ให้ตัวที่ 1 ขยายกินพื้นที่ 2 ช่อง (โชว์ความเก๋าของ Grid) */
+        .grid-item.big {
+            grid-column: span 2; /* สั่งให้กินพื้นที่ 2 คอลัมน์ */
+            background-color: #f7fff7;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>1. Display: Flex</h2>
+    <p>สังเกต: วัตถุจะเรียงต่อกันเป็นแถวแนวนอน (Row) ตามธรรมชาติ จัดระยะห่างด้วย justify-content</p>
+    
+    <div class="flex-container">
+        <div class="flex-item">Home</div>
+        <div class="flex-item">About</div>
+        <div class="flex-item">Contact</div>
+        <div class="flex-item">Profile</div>
+    </div>
+
+    <hr>
+
+    <h2>2. Display: Grid</h2>
+    <p>สังเกต: วัตถุจะถูกบังคับให้อยู่ในบล็อก 3 คอลัมน์ตามที่สั่งไว้ (grid-template-columns)</p>
+
+    <div class="grid-container">
+        <div class="grid-item big">Header (กิน 2 ช่อง)</div>
+        <div class="grid-item">Menu</div>
+        <div class="grid-item">Content 1</div>
+        <div class="grid-item">Content 2</div>
+        <div class="grid-item">Content 3</div>
+        <div class="grid-item">Footer</div>
+    </div>
+
+</body>
+</html>

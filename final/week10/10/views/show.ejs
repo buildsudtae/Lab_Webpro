@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <style>
+        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h2><%= title %></h2>
+    
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+        
+        <% data.forEach((item) => { %>
+            <tr>
+                <td><%= item.id || item.EmployeeId || item.emp_id %></td>
+                <td><%= item.name || item.FirstName || item.firstname %></td>
+            </tr>
+        <% }); %>
+    </table>
+
+    <br>
+    <a href="/">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Registered Users List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(function(user) { %>
+                    <tr>
+                        <td>
+                            <%= user.id %>
+                        </td>
+                        <td>
+                            <%= user.username %>
+                        </td>
+                        <td>
+                            <%= user.firstname %>
+                                <%= user.lastname %>
+                        </td>
+                        <td>
+                            <%= user.email %>
+                        </td>
+                        <td>
+                            <%= user.age %>
+                        </td>
+                        <td>
+                            <%= user.phone %>
+                        </td>
+                        <td>
+                            <%= user.address %>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+        <br>
+        <a href="/form.html" class="btn">Register New User</a>
+    </div>
+</body>
+
+</html>

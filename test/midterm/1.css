@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+
+}
+
+h1{
+    margin: 30px auto;
+}
+
+.container{
+    width: 300px;
+    height: 600px;
+    background-color: bisque;
+    padding: 10px;
+    place-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px #888888;
+}
+
+input{
+    width: 100%;
+    height: 30px;
+    font-size: 25x;
+    padding: 5px;
+}
+
+#btn{
+    margin-top: 20px;
+    width: 60%;
+}
+label{
+    align-self: flex-start;
+}
+
+form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

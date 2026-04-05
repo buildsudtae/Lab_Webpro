@@ -1,0 +1,50 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+
+img {
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.container{
+    width: fit-content;
+    height: auto;
+    margin: 20px;
+}
+
+.allcard{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.card img{
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.detail{
+    display: flex;
+    margin: 30px;
+}
+
+.detail img {
+    margin-right: 20px;
+}

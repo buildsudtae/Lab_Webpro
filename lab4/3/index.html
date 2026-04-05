@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตารางรายรับ-รายจ่าย</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+
+        }
+
+        .container {
+            width: 700px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #f033d4;
+        }
+
+        .balance {
+            font-size: 40px;
+            margin: 10px 0 20px;
+        }
+
+        .form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        input,
+        select {
+            padding: 6px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #f033d4;
+            color: white;
+            border: none;
+            padding: 7px 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #f033d4;
+            color: white;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>ตารางรายรับ-รายจ่าย</h1>
+        <div>ยอดคงเหลือ</div>
+        <div class="balance" id="balance">0</div>
+
+        <div class="form">
+            <input type="text" id="item" placeholder="รายการ">
+            <input type="number" id="amount" placeholder="จำนวนเงิน">
+            <select id="type">
+                <option value="income">รายรับ</option>
+                <option value="expense">รายจ่าย</option>
+            </select>
+            <input type="date" id="date">
+            <button onclick="addItem()">เพิ่มรายการ</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>วันที่</th>
+                    <th>รายการ</th>
+                    <th>รายรับ</th>
+                    <th>รายจ่าย</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        let balance = 0;
+
+        function addItem() {
+            const item = document.getElementById("item").value;
+            const amount = Number(document.getElementById("amount").value);
+            const type = document.getElementById("type").value;
+            const date = document.getElementById("date").value;
+
+            if (!item || !amount || !date) return;
+
+            const tr = document.createElement("tr");
+
+            const tdDate = document.createElement("td");
+            tdDate.textContent = date;
+
+            const tdItem = document.createElement("td");
+            tdItem.textContent = item;
+
+            const tdIncome = document.createElement("td");
+            const tdExpense = document.createElement("td");
+
+            if (type === "income") {
+                tdIncome.textContent = amount;
+                tdExpense.textContent = 0;
+                balance += amount;
+            } else {
+                tdIncome.textContent = 0;
+                tdExpense.textContent = amount;
+                balance -= amount;
+            }
+
+            tr.append(tdDate, tdItem, tdIncome, tdExpense);
+            document.getElementById("tableBody").appendChild(tr);
+
+            document.getElementById("balance").textContent = balance;
+
+            document.getElementById("item").value = "";
+            document.getElementById("amount").value = "";
+        }
+    </script>
+
+</body>
+
+</html>

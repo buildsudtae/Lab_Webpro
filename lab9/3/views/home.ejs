@@ -1,0 +1,105 @@
+<%- include("header") %>
+
+<h1 class="mb-4">📦 ระบบติดตามคำสั่งซื้อ</h1>
+
+
+<!-- ================= Form ================= -->
+
+<div class="card mb-4 p-3">
+
+    <form action="/add" method="POST">
+
+        <div class="row mb-2">
+            <div class="col">
+                <input type="text" name="customer" class="form-control" placeholder="ชื่อลูกค้า" required>
+            </div>
+
+            <div class="col">
+                <input type="text" name="product" class="form-control" placeholder="รายการสินค้า" required>
+            </div>
+
+            <div class="col">
+                <input type="text" name="address" class="form-control" placeholder="ที่อยู่" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <input type="text" name="phone" class="form-control" placeholder="เบอร์โทร" required>
+            </div>
+
+            <div class="col">
+                <button class="btn btn-success">เพิ่มคำสั่งซื้อ</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+
+<!-- ================= Table ================= -->
+
+<h4>รายการคำสั่งซื้อ</h4>
+
+<table class="table table-bordered">
+
+    <thead class="table-dark text-center">
+        <tr>
+            <th>ID</th>
+            <th>ลูกค้า</th>
+            <th>สินค้า</th>
+            <th>สถานะ</th>
+            <th >อัปเดตสถานะ</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <% data.forEach(item => { %>
+
+            <tr>
+                <td><%= item.id %></td>
+                <td><%= item.customer %></td>
+                <td><%= item.product %></td>
+                <td><%= item.status %></td>
+
+                <td>
+
+                    <form action="/update/<%= item.id %>" method="POST" class="d-flex">
+
+                        <select name="status" class="form-select me-2">
+
+                            <option <%= item.status === 'รอดำเนินการ' ? 'selected' : '' %>>
+                                รอดำเนินการ
+                            </option>
+
+                            <option <%= item.status === 'กำลังจัดส่ง' ? 'selected' : '' %>>
+                                กำลังจัดส่ง
+                            </option>
+
+                            <option <%= item.status === 'จัดส่งแล้ว' ? 'selected' : '' %>>
+                                จัดส่งแล้ว
+                            </option>
+
+                        </select>
+
+                        <button class="btn btn-primary">
+                            อัปเดต
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+        <% }); %>
+
+    </tbody>
+
+</table>
+
+
+<%- include("footer") %>

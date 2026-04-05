@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todos List</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f5f5f5;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 800px;
+            margin-bottom: 20px;
+        }
+
+        h1 { margin: 0; }
+
+        .btn-add-todo {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #table-view {
+            max-height: 400px;
+            overflow-y: auto;
+            width: 800px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        th {
+            background: #eee;
+        }
+
+        .status {
+            text-align: center;
+        }
+
+        #form-view {
+            background: white;
+            padding: 30px;
+            width: 500px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            display: none;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-submit {
+            background: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            flex: 1;
+        }
+
+        .btn-cancel {
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            flex: 1;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="header-container">
+        <h1>Todos List</h1>
+        <button class="btn-add-todo" id="toggleFormBtn">Add Todo</button>
+    </div>
+
+    <div id="table-view">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Deadline</th>
+                    <th>Completed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% todos.forEach(t => { %>
+                    <tr>
+                        <td><%= t.id %></td>
+                        <td><%= t.title %></td>
+                        <td><%= t.deadline %></td>
+                        <td class="status">
+                            <input
+                                type="checkbox"
+                                class="status-checkbox"
+                                data-id="<%= t.id %>"
+                                <%= t.status === 1 ? "checked" : "" %>
+                            >
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <div id="form-view">
+        <h2>Create a New Todo</h2>
+        <form id="todoForm">
+            <label>Title:</label>
+            <input type="text" id="title" required>
+            <label>Description:</label>
+            <textarea id="description"></textarea>
+            <label>Deadline:</label>
+            <input type="date" id="deadline">
+            <div class="button-group">
+                <button type="submit" class="btn-submit">Create Todo</button>
+                <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+<script>
+    const toggleBtn = document.getElementById('toggleFormBtn');
+    const tableView = document.getElementById('table-view');
+    const formView = document.getElementById('form-view');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const todoForm = document.getElementById('todoForm');
+    toggleBtn.addEventListener('click', () => {
+        tableView.style.display = 'none';
+        toggleBtn.style.display = 'none';
+        formView.style.display = 'block';
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        formView.style.display = 'none';
+        tableView.style.display = 'block';
+        toggleBtn.style.display = 'block';
+        todoForm.reset();
+    });
+
+    todoForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const deadline = document.getElementById('deadline').value;
+        const response = await fetch('/api/todos', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, description, deadline })
+        });
+        if (response.ok) {
+            window.location.reload();
+        }
+    });
+
+    document.querySelectorAll('.status-checkbox').forEach(cb => {
+        cb.addEventListener('change', async function() {
+            const id = this.dataset.id;
+            const status = this.checked ? 1 : 0;
+            await fetch(`/api/todos/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status })
+            });
+        });
+    });
+
+</script>
+
+</body>
+</html>

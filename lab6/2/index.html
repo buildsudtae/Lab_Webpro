@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container{
+            max-width: 1200px;
+            width: 100%;
+            height: auto;
+            padding: 20px;
+        }
+
+        .allcard{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+
+        }
+
+        .card{
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 5px black;
+            gap: 20px;
+            text-align: left;
+        }
+
+        img{
+            object-fit: cover;
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .para{
+            font-size: 20px;
+            width: 100%;
+            padding: 10px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="allcard" id="allcard">
+        </div>
+    </div>
+
+    <script>
+        const main = document.getElementById("container");
+        const allcard = document.getElementById("allcard");
+
+        fetch("student-score.json")
+        .then(res => res.json())
+        .then(data => {
+            data.forEach((person,index)=> {
+                const divcard = document.createElement("div");
+                divcard.className = "card";
+
+                const img = document.createElement("img");
+                if(person.gender === "Male"){
+                    img.src = "http://webdev.it.kmitl.ac.th/labdocs/lab6/images/img_male.png";
+                } else {
+                    img.src = "http://webdev.it.kmitl.ac.th/labdocs/lab6/images/img_female.png";
+                }
+
+                const divpara = document.createElement("div");
+                divpara.className = "para";
+                const pindex = document.createElement("p");
+                pindex.textContent = `${index+1}. ${person.name}`;
+                const pPhysic = document.createElement("p");
+                pPhysic.textContent = "physic: "+person.physics;
+                const pMath = document.createElement("p");
+                pMath.textContent = "math: "+person.maths;
+                const pEnglish = document.createElement("p");
+                pEnglish.textContent = "english: "+person.english;
+
+                divpara.append(pindex,pPhysic,pMath,pEnglish)
+
+                divcard.append(img,divpara);
+                allcard.appendChild(divcard)
+
+            })
+        })
+        .catch(error => console.log(error));
+    </script>
+</body>
+</html>

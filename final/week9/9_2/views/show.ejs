@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="adddetail">
+        <h3>
+            track product
+        </h3>
+        <form action="/add" method="post">
+            <input type="text" name="customer" required placeholder="username">
+            <input type="text" name="product" required placeholder="product">
+            <input type="text" name="address" required placeholder="address">
+            <input type="tel" name="phone" required placeholder="phone">
+            <button type="submit">add product</button>
+        </form>
+    </div>
+
+    <div class="detail">
+        <h3>
+            product detail
+        </h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>customer</th>
+                    <th>product</th>
+                    <th>status</th>
+                    <th>change status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach(data => {%>
+                    <tr>
+                        <td><%= data.id%></td>
+                        <td><%= data.customer%></td>
+                        <td><%= data.product%></td>
+                        <td><%= data.status%></td>
+                        <td>
+                            <form action="/update/<%= data.id %>" method="POST">
+                                <select name="status" class="form-select me-2">
+                                    <option value="รอดำเนินการ"<%= data.status === 'รอดำเนินการ' ? 'selected' : '' %>>รอดำเนินการ</option>
+                                    <option value="กำลังจัดส่ง"<%= data.status === 'กำลังจัดส่ง' ? 'selected' : '' %>>กำลังจัดส่ง</option>
+                                    <option value="จัดส่งแล้ว"<%= data.status === 'จัดส่งแล้ว' ? 'selected' : '' %>>จัดส่งแล้ว</option>
+                                </select>
+                                <button type="submit">อัปเดต</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% })%>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-color: gray;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            min-height: 500px;
+            background-color: rgb(232, 232, 232);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            gap: 10px;
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        input {
+            font-size: 32px;
+            width: 80%;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        button {
+            width: 15%;
+            border-radius: 10px;
+            font-size: 28px;
+        }
+
+        #delmovie {
+            margin-left: auto;
+            margin-right: 16px;
+        }
+
+        .list {
+            width: 100%;
+        }
+
+        p {
+            background-color: rgb(169, 169, 169);
+            font-size: 32px;
+            border-radius: 10px;
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>รายการภาพยนต์</h1>
+
+        <form id="formmovie">
+            <input type="text" id="movie" placeholder="ชื่อภาพยนต์...">
+            <button type="button" id="addmovie">+เพิ่ม</button>
+        </form>
+
+        <button type="button" id="delmovie">-ลบทั้งหมด</button>
+
+        <div class="list" id="movielist"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById("formmovie");
+        const input = document.getElementById("movie");
+        const list = document.getElementById("movielist");
+        const btnAdd = document.getElementById("addmovie");
+        const btnDel = document.getElementById("delmovie");
+
+        btnAdd.addEventListener("click", addMovie);
+        btnDel.addEventListener("click", deleteAll);
+
+        function getMovies() {
+            return JSON.parse(localStorage.getItem("namemovie")) || [];
+        }
+
+        function saveMovies(movies) {
+            localStorage.setItem("namemovie", JSON.stringify(movies));
+        }
+
+        function addMovie() {
+            if (input.value.trim() === "") {
+                alert("กรุณากรอกชื่อหนัง");
+                return;
+            }
+
+            const movies = getMovies();
+            movies.push(input.value.trim());
+            saveMovies(movies);
+
+            form.reset();
+            renderMovies();
+        }
+
+        function renderMovies() {
+            list.innerHTML = "";
+
+            const movies = getMovies();
+
+            if (movies.length === 0) {
+                list.innerHTML = "<p>ยังไม่มีรายการโปรด</p>";
+                return;
+            }
+
+            movies.forEach(movie => {
+                const p = document.createElement("p");
+                p.textContent = movie;
+                list.appendChild(p);
+            });
+        }
+
+        function deleteAll() {
+            localStorage.removeItem("namemovie");
+            renderMovies();
+        }
+
+        // โหลดข้อมูลตอนเปิดหน้า
+        renderMovies();
+    </script>
+</body>
+
+</html>

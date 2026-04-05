@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            margin-bottom: 10px;
+        }
+
+        .topic {
+            margin-bottom: 30px;
+        }
+
+        .all_box {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .box {
+            background-color: white;
+            height: auto;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid black;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgb(143, 143, 143);
+        }
+
+        .readmore {
+            align-self: flex-end;
+            margin-top: auto;
+        }
+
+        @media (max-width: 700px) {
+            .all_box {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="topic">
+            <h2>Top 10 Programming Languages for 2025</h2>
+            <p>The programming landscape is evolving rapidly, with certain languages dominating due to their
+                versatility, demand, and alignment with emerging technologies. Below are the top 10
+                programming languages projectedto lead in 2025,
+                based on popularity, job demand, and future trends.</p>
+        </div>
+        <h2>Languages</h2>
+        <div class="all_box">
+            <div class="box" id="box1">
+                <h4>
+                    Python
+                </h4>
+                <p>Python remains the most popular language due to its simplicity, readability, and extensive libraries.
+                    It is widely used in data science, machine learning, web development, and automation.</p>
+                <p class="readmore">Read more-></p>
+            </div>
+
+            <div class="box" id="box2">
+                <h4>
+                    JavaScript
+                </h4>
+                <p>JavaScript is essential for web development, powering both front-end
+                    (via frameworks like React) and back-end (via Node.js).</p>
+                <p class="readmore">Read more-></p>
+            </div>
+
+            <div class="box" id="box3">
+                <h4>
+                    Java
+                </h4>
+                <p>Java Java remains a staple for enterprise applications, Android development, and large-scale systems.
+                    Its
+                    platform
+                    independence and robust frameworks like Spring make it a favorite among enterprises.</p>
+                <p class="readmore">Read more-></p>
+            </div>
+            <div class="box" id="box4">
+                <h4>
+                    C++
+                </h4>
+                <p>C++ excels in performance-critical applications like game development, real-time simulations, and
+                    system programming.</p>
+                <p class="readmore">Read more-></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif; /* แนะนำให้ใช้ Google Font ถ้ามี */
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            color: #007bff;
+        }
+
+        /* Styles สำหรับตาราง */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Styles สำหรับฟอร์ม */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* สำคัญเพื่อให้ padding ไม่ดันความกว้างเกิน */
+        }
+
+        /* Styles สำหรับปุ่ม */
+        .btn-group {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .btn-fetch { background-color: #17a2b8; } /* สีฟ้าอมเขียว */
+        .btn-save { background-color: #28a745; }  /* สีเขียว */
+        .btn-view { background-color: #ffc107; color: black; } /* สีเหลือง */
+        .btn-delete { background-color: #dc3545; } /* สีแดง */
+
+        hr {
+            margin: 40px 0;
+            border: 0;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <h2>1. ข้อมูลพนักงาน (จาก employees.json)</h2>
+    <button class="btn-fetch" onclick="fetchAndDisplayJSON()">โหลดข้อมูล JSON</button>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Position</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody id="json-table-body">
+            <tr><td colspan="5" style="text-align:center;">กดปุ่มเพื่อโหลดข้อมูล...</td></tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h2>2. ฟอร์มบันทึกข้อมูล (LocalStorage)</h2>
+    
+    <div class="form-group">
+        <label>คำนำหน้า:</label>
+        <select id="inputPrefix">
+            <option value="นาย">นาย</option>
+            <option value="นาง">นาง</option>
+            <option value="นางสาว">นางสาว</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>ชื่อจริง:</label>
+        <input type="text" id="inputFirstName" placeholder="กรอกชื่อจริง">
+    </div>
+    <div class="form-group">
+        <label>นามสกุล:</label>
+        <input type="text" id="inputLastName" placeholder="กรอกนามสกุล">
+    </div>
+    <div class="form-group">
+        <label>ที่อยู่:</label>
+        <input type="text" id="inputAddress" placeholder="กรอกที่อยู่">
+    </div>
+    <div class="form-group">
+        <label>อาชีพ:</label>
+        <input type="text" id="inputPosition" placeholder="กรอกอาชีพ">
+    </div>
+    <div class="form-group">
+        <label>เบอร์โทร:</label>
+        <input type="text" id="inputPhone" placeholder="กรอกเบอร์โทร">
+    </div>
+
+    <div class="btn-group">
+        <button class="btn-save" onclick="saveToLocal()">บันทึก (Save)</button>
+        <button class="btn-view" onclick="viewFromLocal()">เรียกดู (View)</button>
+        <button class="btn-delete" onclick="deleteLocal()">ลบข้อมูล (Delete)</button>
+    </div>
+
+    <h3>ข้อมูลที่บันทึกไว้:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ชื่อ-นามสกุล</th>
+                <th>ที่อยู่</th>
+                <th>อาชีพ</th>
+                <th>เบอร์โทร</th>
+            </tr>
+        </thead>
+        <tbody id="local-table-body">
+            <tr><td colspan="4" style="text-align:center;">ยังไม่มีข้อมูล หรือกดปุ่ม "เรียกดู"</td></tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    // ==========================================
+    // ส่วนที่ 1: Fetch JSON
+    // ==========================================
+    function fetchAndDisplayJSON() {
+        fetch('employees.json')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('json-table-body');
+                tbody.innerHTML = ''; // เคลียร์ข้อมูลเก่า
+
+                data.forEach(emp => {
+                    const row = document.createElement('tr');
+                    
+                    // แปลง Gender Female -> F, Male -> M
+                    const genderShort = emp.Gender === 'Female' ? 'F' : 'M';
+                    // รวมชื่อ
+                    const fullName = `${emp.FirstName} ${emp.LastName}`;
+
+                    row.innerHTML = `
+                        <td style="text-align:center">${emp.id}</td>
+                        <td>${fullName}</td>
+                        <td style="text-align:center">${genderShort}</td>
+                        <td>${emp.Position}</td>
+                        <td>${emp.Address}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('ไม่สามารถโหลดไฟล์ JSON ได้ (ต้องรันผ่าน Server/Live Server)');
+            });
+    }
+
+    // ==========================================
+    // ส่วนที่ 2: LocalStorage Logic
+    // ==========================================
+    
+    // ฟังก์ชัน SAVE
+    function saveToLocal() {
+        // 1. รับค่าจากฟอร์ม
+        const prefix = document.getElementById('inputPrefix').value;
+        const firstName = document.getElementById('inputFirstName').value;
+        const lastName = document.getElementById('inputLastName').value;
+        const address = document.getElementById('inputAddress').value;
+        const position = document.getElementById('inputPosition').value;
+        const phone = document.getElementById('inputPhone').value;
+
+        // เช็คว่ากรอกครบไหม (Optional)
+        if(!firstName || !lastName) {
+            alert('กรุณากรอกชื่อและนามสกุล');
+            return;
+        }
+
+        // 2. สร้าง Object ข้อมูล
+        const newEmployee = {
+            fullName: `${prefix} ${firstName} ${lastName}`,
+            address: address,
+            position: position,
+            phone: phone
+        };
+
+        // 3. ดึงข้อมูลเก่าออกมาเป็น Array (ถ้าไม่มีให้เป็น Array ว่าง)
+        let employees = JSON.parse(localStorage.getItem('myEmployeeData')) || [];
+        console.log(employees);
+        // 4. เพิ่มข้อมูลใหม่เข้าไป
+        employees.push(newEmployee);
+
+        // 5. บันทึกกลับลง LocalStorage
+        localStorage.setItem('myEmployeeData', JSON.stringify(employees));
+
+        // 6. แจ้งเตือนและเคลียร์ฟอร์ม
+        alert('บันทึกข้อมูลเรียบร้อย!');
+        clearForm();
+        // viewFromLocal(); // ถ้าอยากให้แสดงผลทันทีให้เปิดบรรทัดนี้
+    }
+
+    // ฟังก์ชัน VIEW
+    function viewFromLocal() {
+        // 1. ดึงข้อมูลจาก LocalStorage
+        const employees = JSON.parse(localStorage.getItem('myEmployeeData'));
+        const tbody = document.getElementById('local-table-body');
+        tbody.innerHTML = ''; // เคลียร์ตาราง
+
+        // 2. ตรวจสอบว่ามีข้อมูลไหม
+        if (!employees || employees.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">ไม่มีข้อมูลใน LocalStorage</td></tr>';
+            return;
+        }
+
+        // 3. วนลูปแสดงผล
+        employees.forEach(emp => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${emp.fullName}</td>
+                <td>${emp.address}</td>
+                <td>${emp.position}</td>
+                <td>${emp.phone}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    // ฟังก์ชัน DELETE
+    function deleteLocal() {
+        if(confirm('คุณต้องการลบข้อมูลทั้งหมดใช่หรือไม่?')) {
+            // ลบ Key ที่เราตั้งไว้
+            localStorage.removeItem('myEmployeeData');
+            
+            // อัพเดทหน้าจอ
+            alert('ลบข้อมูลเรียบร้อย');
+            document.getElementById('local-table-body').innerHTML = '<tr><td colspan="4" style="text-align:center;">ลบข้อมูลแล้ว</td></tr>';
+        }
+    }
+
+    // ฟังก์ชันเสริม: เคลียร์ค่าใน Input หลังบันทึก
+    function clearForm() {
+        document.getElementById('inputFirstName').value = '';
+        document.getElementById('inputLastName').value = '';
+        document.getElementById('inputAddress').value = '';
+        document.getElementById('inputPosition').value = '';
+        document.getElementById('inputPhone').value = '';
+    }
+</script>
+
+</body>
+</html>

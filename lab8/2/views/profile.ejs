@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2 style="color: green;">Login Successful!</h2>
+        <h3>Welcome, <%= user.firstname %>
+                <%= user.lastname %>
+        </h3>
+
+        <table border="1" style="width:100%; margin-top:20px;">
+            <tr>
+                <th>Field</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>ID</td>
+                <td>
+                    <%= user.id %>
+                </td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td>
+                    <%= user.username %>
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <%= user.email %>
+                </td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td>
+                    <%= user.age %>
+                </td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td>
+                    <%= user.phone %>
+                </td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>
+                    <%= user.address %>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+        <a href="/" class="btn" style="background-color: #dc3545;">Sign Out</a>
+    </div>
+</body>
+
+</html>

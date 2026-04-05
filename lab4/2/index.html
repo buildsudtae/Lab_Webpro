@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Switch Form</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 350px;
+            border: 1px solid #aaa;
+            padding: 20px;
+            border-radius: 6px;
+        }
+
+
+        .row {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="formContainer"></div>
+
+    <script>
+        let currentLang = "th";
+
+        const text = {
+            th: {
+                fname: "ชื่อ",
+                lname: "นามสกุล",
+                country: "ประเทศ",
+                select: "เลือกประเทศ",
+                button: "เปลี่ยนเป็นภาษาอังกฤษ",
+                countries: ["ไทย", "ญี่ปุ่น", "บราซิล", "แคนาดา", "ฝรั่งเศส"]
+            },
+            en: {
+                fname: "First Name",
+                lname: "Last Name",
+                country: "Country",
+                select: "Select a country",
+                button: "Change to Thai",
+                countries: ["Thailand", "Japan", "Brazil", "Canada", "France"]
+            }
+        };
+
+        function createForm() {
+            const container = document.getElementById("formContainer");
+            container.innerHTML = "";
+
+            // First name
+            const row1 = document.createElement("div");
+            row1.className = "row";
+            const label1 = document.createElement("label");
+            label1.textContent = text[currentLang].fname + ":";
+            const input1 = document.createElement("input");
+            row1.append(label1, input1);
+
+            // Last name
+            const row2 = document.createElement("div");
+            row2.className = "row";
+            const label2 = document.createElement("label");
+            label2.textContent = text[currentLang].lname + ":";
+            const input2 = document.createElement("input");
+            row2.append(label2, input2);
+
+            // Country
+            const row3 = document.createElement("div");
+            row3.className = "row";
+            const label3 = document.createElement("label");
+            label3.textContent = text[currentLang].country + ":";
+            const select = document.createElement("select");
+
+            const defaultOption = document.createElement("option");
+            defaultOption.textContent = text[currentLang].select;
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            select.appendChild(defaultOption);
+
+            text[currentLang].countries.forEach(c => {
+                const option = document.createElement("option");
+                option.textContent = c;
+                select.appendChild(option);
+            });
+
+            row3.append(label3, select);
+
+            // Button
+            const row4 = document.createElement("div");
+            const btn = document.createElement("button");
+            btn.textContent = text[currentLang].button;
+            btn.onclick = switchLang;
+            row4.appendChild(btn);
+
+            container.append(row1, row2, row3, row4);
+        }
+
+        function switchLang() {
+            currentLang = currentLang === "th" ? "en" : "th";
+            createForm();
+        }
+
+        createForm();
+    </script>
+
+</body>
+
+</html>

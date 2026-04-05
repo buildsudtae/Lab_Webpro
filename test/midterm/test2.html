@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>preventDefault demo</title>
+</head>
+<body>
+
+  <h2>ตัวอย่าง form + preventDefault()</h2>
+
+  <form id="myForm">
+    <label>
+      ชื่อ:
+      <input type="text" id="name">
+    </label>
+    <br><br>
+
+    <button type="submit">ส่งฟอร์ม</button>
+  </form>
+
+  <p id="result"></p>
+
+  <script>
+    const form = document.getElementById('myForm');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // 🔥 ตัวเอก
+
+      const name = document.getElementById('name').value;
+
+      if (name === '') {
+        result.textContent = 'กรุณากรอกชื่อ';
+        result.style.color = 'red';
+        return;
+      }
+
+      result.textContent = 'ส่งฟอร์มสำเร็จ ชื่อ: ' + name;
+      result.style.color = 'green';
+    });
+  </script>
+
+</body>
+</html>

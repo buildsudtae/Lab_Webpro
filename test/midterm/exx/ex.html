@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: center;
+        }
+
+        form input {
+            margin-right: 5px;
+        }
+
+        button {
+            margin: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>เพิ่มนักศึกษา</h2>
+    <form id="student-form">
+        <input type="text" id="name" placeholder="ชื่อ" required>
+        <input type="text" id="major" placeholder="สาขา" required>
+        <input type="number" step="0.01" id="gpa" placeholder="GPA" required>
+        <button type="submit">เพิ่ม</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ชื่อ</th>
+                <th>สาขา</th>
+                <th>GPA</th>
+                <th>จัดการ</th>
+            </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
+
+    <script>
+        
+    </script>
+</body>
+
+</html>

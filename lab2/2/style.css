@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+table ,th,td{
+    margin: 20px 20px;
+    padding: 5px 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.score_row{
+    width: 150px;
+}
+
+.score {
+    padding-left: 5px;
+}

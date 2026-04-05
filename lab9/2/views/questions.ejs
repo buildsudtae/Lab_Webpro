@@ -1,0 +1,71 @@
+<%- include("header") %>
+
+<h1 class="mb-4">Questions</h1>
+
+<% data.forEach((item, index)=>{ %>
+
+<div class="question-box">
+
+    <h5><%= index + 1 %>. <%= item.Stem %></h5>
+
+    <!-- A -->
+    <div class="form-check">
+        <input class="form-check-input"
+               type="radio"
+               name="q<%= item.QID %>"
+               id="q<%= item.QID %>A"
+               value="A"
+               <%= item.Correct === 'A' ? 'checked' : '' %> >
+
+        <label class="form-check-label" for="q<%= item.QID %>A">
+            <%= item.Alt_A %>
+        </label>
+    </div>
+
+    <!-- B -->
+    <div class="form-check">
+        <input class="form-check-input"
+               type="radio"
+               name="q<%= item.QID %>"
+               id="q<%= item.QID %>B"
+               value="B"
+               <%= item.Correct === 'B' ? 'checked' : '' %> >
+
+        <label class="form-check-label" for="q<%= item.QID %>B">
+            <%= item.Alt_B %>
+        </label>
+    </div>
+
+    <!-- C -->
+    <div class="form-check">
+        <input class="form-check-input"
+               type="radio"
+               name="q<%= item.QID %>"
+               id="q<%= item.QID %>C"
+               value="C"
+               <%= item.Correct === 'C' ? 'checked' : '' %> >
+
+        <label class="form-check-label" for="q<%= item.QID %>C">
+            <%= item.Alt_C %>
+        </label>
+    </div>
+
+    <!-- D -->
+    <div class="form-check">
+        <input class="form-check-input"
+               type="radio"
+               name="q<%= item.QID %>"
+               id="q<%= item.QID %>D"
+               value="D"
+               <%= item.Correct === 'D' ? 'checked' : '' %> >
+
+        <label class="form-check-label" for="q<%= item.QID %>D">
+            <%= item.Alt_D %>
+        </label>
+    </div>
+
+</div>
+
+<% }); %>
+
+<%- include("footer") %>

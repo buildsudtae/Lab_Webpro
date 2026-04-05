@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f4f6f8; }
+        .navbar { background-color: #1aa036; padding: 15px; text-align: center; }
+        .navbar a { color: white; text-decoration: none; margin: 0 20px; font-weight: bold; font-size: 16px; }
+        .container { max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); text-align: center; }
+        h2 { color: #333; margin-top: 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; text-align: center; }
+        th, td { padding: 12px; border-bottom: 1px solid #eee; }
+        th { background-color: #f9f9f9; color: #555; }
+        td.text-left { text-align: left; }
+        .total-box { margin-top: 25px; font-size: 18px; font-weight: bold; color: #333; }
+        .btn-confirm { background-color: #c8105e; color: white; padding: 10px 25px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 15px; border: none; font-size: 15px; cursor: pointer; }
+        .btn-confirm:hover { background-color: #a00b4a; }
+        .empty-cart { color: #888; margin: 30px 0; }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Menu</a>
+    <a href="/cart">Cart</a>
+</div>
+
+<div class="container">
+    <h2>List of items</h2>
+
+    <% if (cart.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th class="text-left">Item</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% cart.forEach(function(item, index) { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td class="text-left"><%= item.name %></td>
+                        <td><%= item.qty %></td>
+                        <td><%= item.price * item.qty %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <div class="total-box">
+            total price : <%= totalPrice %> THB
+        </div>
+
+        <a href="/confirm" class="btn-confirm">Confirm Order</a>
+
+    <% } else { %>
+        <p class="empty-cart">ตะกร้าสินค้าว่างเปล่า ลองเลือกเมนูอาหารดูสิ!</p>
+    <% } %>
+
+</div>
+
+</body>
+</html>

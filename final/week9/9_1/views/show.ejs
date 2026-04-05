@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>
+        User Lists
+    </h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data.forEach(data => { %>
+                <tr>
+                    <td>
+                        <%= data.id %>
+                    </td>
+                    <td>
+                        <%= data.first_name %>
+                    </td>
+                    <td>
+                        <%= data.last_name %>
+                    </td>
+                    <td>
+                        <%= data.username %>
+                    </td>
+                    <td>
+                        <%= data.email %>
+                    </td>
+                    <td>
+                        <a href="/detail/<%= data.id %>">
+                        Detail
+                        </a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

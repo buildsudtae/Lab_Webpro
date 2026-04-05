@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f2f4f7;
+        }
+
+        .card {
+            background: #fff;
+            width: 520px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-add {
+            background: #0d6efd;
+            color: #fff;
+        }
+
+        .btn-clear {
+            width: fit-content;
+            background: #0d6efd;
+            color: #fff;
+            margin-bottom: 15px;
+            align-self: flex-end;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-radius: 6px;
+            background: #f8f9fa;
+            margin-bottom: 10px;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .empty {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="title">
+            <span>🎬</span>
+            <span>รายการภาพยนตร์/ซีรีส์โปรด</span>
+        </div>
+
+        <div class="form">
+            <input type="text" id="movieInput" placeholder="ชื่อภาพยนตร์หรือซีรีส์...">
+            <button class="btn-add" id="addBtn">+ เพิ่ม</button>
+        </div>
+
+        <button class="btn-clear" id="clearBtn">- ลบทั้งหมด</button>
+
+        <ul id="list"></ul>
+    </div>
+
+    <script>
+        const input = document.getElementById("movieInput");
+        const list = document.getElementById("list");
+        const addBtn = document.getElementById("addBtn");
+        const clearBtn = document.getElementById("clearBtn");
+
+        function loadMovies() {
+            list.textContent = "";
+
+            const movies = JSON.parse(localStorage.getItem("movies")) || [];
+
+            if (movies.length === 0) {
+                const emptyDiv = document.createElement("div");
+                emptyDiv.className = "empty";
+                emptyDiv.appendChild(
+                    document.createTextNode("ยังไม่มีรายการโปรด")
+                );
+                list.appendChild(emptyDiv);
+                return;
+            }
+
+            movies.forEach((movie, index) => {
+                const li = document.createElement("li");
+
+                const span = document.createElement("span");
+                span.appendChild(
+                    document.createTextNode("🎬 " + movie)
+                );
+
+                const delBtn = document.createElement("button");
+                delBtn.className = "btn-delete";
+                delBtn.appendChild(
+                    document.createTextNode("ลบ")
+                );
+                delBtn.addEventListener("click", () => {
+                    deleteMovie(index);
+                });
+
+                li.appendChild(span);
+                li.appendChild(delBtn);
+                list.appendChild(li);
+            });
+        }
+
+        function addMovie() {
+            const value = input.value.trim();
+            if (value === "") return;
+
+            const movies = JSON.parse(localStorage.getItem("movies")) || [];
+            movies.push(value);
+            localStorage.setItem("movies", JSON.stringify(movies));
+
+            input.value = "";
+            loadMovies();
+        }
+
+        function deleteMovie(index) {
+            const movies = JSON.parse(localStorage.getItem("movies"));
+            movies.splice(index, 1);
+            localStorage.setItem("movies", JSON.stringify(movies));
+            loadMovies();
+        }
+
+        function clearAll() {
+            localStorage.removeItem("movies");
+            loadMovies();
+        }
+
+        addBtn.addEventListener("click", addMovie);
+        clearBtn.addEventListener("click", clearAll);
+
+        loadMovies();
+    </script>
+</body>
+</html>

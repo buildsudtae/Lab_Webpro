@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        .col-detail {
+            width: 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>
+            ตารางรายรับ-รายจ่าย
+        </h2>
+        <h3>
+            ยอดเงินคงเหลือ
+        </h3>
+        <h3 id="remaining">0</h3>
+        <form>
+            <input type="text" id="detail" placeholder="รายการ">
+            <input type="number" id="amount" placeholder="จำนวน">
+            <select name="" id="type">
+                <option value="expend" id="expend" selected>รายจ่าย</option>
+                <option value="income" id="income">รายรับ</option>
+            </select>
+            <input type="date" id="date">
+            <button type="button" id="btn">เพิ่มรายการ</button>
+        </form>
+        <table id="record">
+            <thead>
+                <tr>
+                    <th>วันที่</th>
+                    <th class="col-detail">รายการ</th>
+                    <th>รายรับ</th>
+                    <th>รายจ่าย</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script>
+        const table = document.getElementById("record");
+        const tbody = table.querySelector("tbody");
+        const btn = document.getElementById("btn");
+        const form = document.querySelector("form");
+        btn.addEventListener("click", calculator);
+        function calculator() {
+            const amount = document.getElementById("amount");
+            const date = document.getElementById("date");
+            const detail = document.getElementById("detail");
+            const type = document.getElementById("type");
+
+            const value_amount = Number(amount.value);
+            const value_date = date.value;
+            const value_detail = detail.value;
+            const value_type = type.value;
+
+            if (!value_date || !value_detail || value_amount <= 0) {
+                alert("กรุณากรอกข้อมูลให้ครบ");
+                return;
+            }
+
+            const tr = document.createElement("tr");
+            const td1 = document.createElement("td");
+            const td2 = document.createElement("td");
+            const td3 = document.createElement("td");
+            const td4 = document.createElement("td");
+            td1.textContent = value_date;
+            td2.textContent = value_detail;
+            let remaining = document.getElementById("remaining");
+            let remaining2 = Number(remaining.textContent);
+            let total;
+            if (value_type === "income") {
+                total = remaining2 + value_amount;
+                td3.textContent = value_amount;
+                td4.textContent = 0;
+            } else {
+                total = remaining2 - value_amount;
+                td3.textContent = 0;
+                td4.textContent = value_amount;
+            }
+            tr.append(td1, td2, td3, td4);
+            tbody.appendChild(tr);
+            remaining.textContent = total;
+            form.reset();
+        }
+    </script>
+</body>
+
+</html>

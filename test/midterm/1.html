@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="1.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>User Registration</h1>
+        <form onsubmit="return validateForm()">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username"><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email"><br>
+
+            <label for="phone">Phone:</label><br>
+            <input type="tel" id="phone"><br>
+
+            <label for="password">Password:</label><br>
+            <input type="password" id="password"><br>
+
+            <label for="password2">Confirm Password:</label><br>
+            <input type="password" id="password2"><br>
+
+            <button type="submit" id="btn">Register</button>
+        </form>
+
+        <script>
+            function validateForm() {
+                let username = document.getElementById("username");
+                if (username.value.length < 5) {
+                    alert("Username must be at least 5 characters");
+                    return false;
+                }
+
+                let email = document.getElementById("email");
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email.value)) {
+                    alert("Invalid email");
+                    return false;
+                }
+
+                let phone = document.getElementById("phone");
+                const phonePattern = /^[0-9]{10}$/;
+                if (!phonePattern.test(phone.value)) {
+                    alert("Phone must be 10 digits");
+                    return false;
+                }
+
+                let password = document.getElementById("password");
+                let password2 = document.getElementById("password2");
+                const passwordPattern =
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,}$/;
+
+                if (!passwordPattern.test(password.value)) {
+                    alert("Password not strong");
+                    return false;
+                }
+
+                if (password.value !== password2.value) {
+                    alert("Password not match");
+                    return false;
+                }
+
+                alert("Register successful");
+                return true; // อนุญาตให้ submit
+            }
+
+        </script>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/doclink") %>
+</head>
+<body>
+    <%- include("partials/header") %>
+
+    <h2>Employee Data</h2>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Title</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        <% data.forEach((item) => { %>
+            <tr>
+                <td><%= item.EmployeeId %></td>
+                <td><%= item.FirstName %></td>
+                <td><%= item.LastName %></td>
+                <td><%= item.Title %></td>
+                <td><%= item.Phone %></td>
+                <td><%= item.Email %></td>
+                <td><a href="/delete/<%= item.EmployeeId %>" style="color:red;">Delete</a></td>
+            </tr>
+        <% }); %>
+    </table>
+
+    <%- include("partials/footer") %>
+</body>
+</html>

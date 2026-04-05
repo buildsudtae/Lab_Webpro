@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="3.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h3>สุ่มตัวเลข</h3>
+        <div class="img-wrapper">
+            <img src="http://webdev.it.kmitl.ac.th/labdocs/lab3/images/0.png" alt="1" id="img1" />
+            <img src="http://webdev.it.kmitl.ac.th/labdocs/lab3/images/0.png" alt="2" id="img2" />
+            <img src="http://webdev.it.kmitl.ac.th/labdocs/lab3/images/0.png" alt="3" id="img3" />
+            <img src="http://webdev.it.kmitl.ac.th/labdocs/lab3/images/0.png" alt="4" id="img4" />
+            <img src="http://webdev.it.kmitl.ac.th/labdocs/lab3/images/0.png" alt="5" id="img5" />
+            <img src="http://webdev.it.kmitl.ac.th/labdocs/lab3/images/0.png" alt="6" id="img6" />
+        </div>
+        <button onclick="random()">สุ่มเลข</button>
+    </div>
+    <script>
+        function random(){
+            for(let i = 1; i <= 6;i++){
+                let num = Math.floor(Math.random()*10)+0;
+                let img = document.getElementById("img"+i);
+                img.src = "http://webdev.it.kmitl.ac.th/labdocs/lab3/images/"+num+".png";
+            }
+        }
+    </script>
+</body>
+
+</html>

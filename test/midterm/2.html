@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="2.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>User Registration</h2>
+        <form onsubmit="return validform()">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username"><br>
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" placeholder="e.g., user@example.com"><br>
+            <label for="phone">Phone:</label><br>
+            <input type="text" id="phone"placeholder="e.g., 555-555-5555"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password"><br>
+            <label for="com_password">Comfirm Password:</label><br>
+            <input type="password" id="com_password"><br>
+            <button type="submit">Registor</button>
+        </form>
+    </div>
+    <script>
+        function validform() {
+            let username = document.getElementById("username");
+            if (username.value.length < 5) {
+                alert("atleast 5 character");
+                return false;
+            }
+
+            let email = document.getElementById("email");
+            const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            if (!email_pattern.test(email.value)) {
+                alert("Wrong email");
+                return false;
+            }
+
+            let phone = document.getElementById("phone");
+            const phone_pattern = /^[0-9]{10}$/
+            if (!phone_pattern.test(phone.value)) {
+                alert("10 number");
+                return false;
+            }
+
+            let password = document.getElementById("password");
+            let comfirm_password = document.getElementById("com_password");
+            const password_pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,}$/;
+            if (!password_pattern.test(password.value)) {
+                alert("password not strong enough");
+                return false;
+            }
+            if (password.value !== comfirm_password.value) {
+                alert("password not match");
+                return false;
+            }
+            alert("looogin successful");
+            return true;
+        }
+    </script>
+</body>
+
+</html>
